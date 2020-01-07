@@ -1,11 +1,13 @@
 import express from 'express';
-import Trips from '../controllers/trips';
+import Providers from '../controllers/expenses';
 
 
 // defining middleware routes
 const router = express.Router();
 
 // Post routes
-router.get('/streams', Trips.GetAllTrips);
+router.get('/streams', Providers.getAllProviders);
+router.get('/streams/:id', Providers.getOneProvider);
+router.put('/streams/:id', Providers.updateProvider);
 
 export default router;

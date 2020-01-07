@@ -1,12 +1,18 @@
 import '@babel/polyfill';
 import express from 'express';
 import dotenv from 'dotenv';
+import connection from './db/connection';
 import router from './routes/index';
+import { expenseStream } from './db/streams';
 
 dotenv.config();
 
 const app = express();
-const { PORT, HOST } = process.env;
+const { PORT } = process.env;
+const database_ip = process.env.IP;
+console.log(database_ip);
+
+expenseStream();
 
 app.use(express.json());
 app.use(router);
@@ -31,6 +37,6 @@ app.use((req, res) => res.status(500).send({
     'error': 'Oops! The problem is not on your side. Hang on, we will fix this soon'
 }));
 
-app.listen(PORT); 
+app.listen(PORT, database_ip); 
 
 export default app;
