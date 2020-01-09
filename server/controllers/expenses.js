@@ -1,6 +1,27 @@
 import Provider from './../models/expenses';
 
 class Providers {  
+
+/**
+   * Save Expenses Stream 
+   * @param {object} res 
+   * @returns {object} Expenses object
+   */
+  static async saveStreams(stream) {
+    try {
+      const data = new Provider(stream);
+      await data.save();
+    } catch(error) {
+        return (
+        {
+          status: 400,
+          message: 'Oops failed to add expense',
+          error
+      });
+    }
+  }
+
+
   /**
    * Get All Expenses
    * @param {object} req 
@@ -26,6 +47,7 @@ class Providers {  
     }
   }
 
+
   /**
    * Get A Single Expense
    * @param {object} req 
@@ -50,6 +72,7 @@ class Providers {  
     })
     }
   }
+
 
   /**
    * Update A Provider

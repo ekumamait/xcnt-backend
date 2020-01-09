@@ -1,9 +1,10 @@
 import request from 'request';
 import stream from 'event-stream';
 import dotenv from 'dotenv';
-import {saveStreams} from '../helpers/saveStreams';
+import Provider from '../controllers/expenses';
 
 dotenv.config();
+
 
 const { HOST } = process.env;
 
@@ -14,8 +15,7 @@ export const expenseStream = async() => {
         .pipe(stream.parse())
         .pipe(stream.map(function (data) { 
             // console.log(data);
-            
-            saveStreams(data);
+            Provider.saveStreams(data);
             }))
 }
 
